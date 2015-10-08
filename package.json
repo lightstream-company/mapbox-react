@@ -1,0 +1,34 @@
+{
+  "name": "mapbox-react",
+  "version": "0.0.1",
+  "description": "Leaflet engine with Mapbox and React",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lightstream-company/mapbox-react.git"
+  },
+  "keywords": [
+    "mapbox",
+    "react",
+    "leaflet"
+  ],
+  "author": "Lightstream Company",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lightstream-company/mapbox-react/issues"
+  },
+  "homepage": "https://github.com/lightstream-company/mapbox-react#readme",
+  "dependencies": {
+    "mapbox.js": "^2.2.2",
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^4.0.1",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
