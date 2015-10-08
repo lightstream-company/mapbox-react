@@ -1,0 +1,16 @@
+.circle{
+  position: absolute;
+  border: 1px solid red;
+  background: rgba(255,0,0,0.3);
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+
+}
+
+.center{
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  border: 1px solid red;
+}
