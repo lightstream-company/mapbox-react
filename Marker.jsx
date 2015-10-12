@@ -76,6 +76,7 @@ class Marker extends React.Component {
     let children = React.Children.map(this.props.children, (child) => {
       if (child.type === Popup) {
         hasPopup = true;
+        this.popupClassName = child.props.className || '';
         this.popup = React.cloneElement(child, {
           map: this.props.map,
           layer: this.props.layer,
@@ -91,7 +92,9 @@ class Marker extends React.Component {
   openPopup() {
     if (this.popup) {
       let coor = this.props.geojson.coordinates;
-      let popup = L.popup();
+      let popup = L.popup({
+        className: this.popupClassName
+      });
       let html = React.renderToStaticMarkup(this.popup);
       popup.setLatLng([coor[1], coor[0]]);
       popup.setContent(html);

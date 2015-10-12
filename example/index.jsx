@@ -71,7 +71,7 @@ class Example extends React.Component {
             <div className="circle">
               <div className="center"></div>
             </div>
-            <Popup>
+            <Popup className="popup-class">
               <h1>{item.data.title}</h1>
               <p>yolo</p>
             </Popup>
