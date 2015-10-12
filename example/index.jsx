@@ -73,6 +73,7 @@ class Example extends React.Component {
             </div>
             <Popup>
               <h1>{item.data.title}</h1>
+              <p>yolo</p>
             </Popup>
           </Marker>;
         })}
