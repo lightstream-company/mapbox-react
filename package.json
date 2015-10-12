@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/lightstream-company/mapbox-react#readme",
   "dependencies": {
+    "envify": "^3.4.0",
     "mapbox.js": "^2.2.2",
     "react": "^0.13.3"
   },
