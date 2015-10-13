@@ -4,8 +4,13 @@ import React from 'react';
 
 class MapboxLayer extends React.Component {
 
-  componentDidMount() {
-    var mapLayer = L.mapbox.tileLayer(this.props.url);
+  static propTypes = {
+    map: React.PropTypes.any,
+    url: React.PropTypes.string
+  };
+
+  componentDidMount(){
+    let mapLayer = L.mapbox.tileLayer(this.props.url);
     mapLayer.addTo(this.props.map);
   }
 

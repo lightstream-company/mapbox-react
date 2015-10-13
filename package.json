@@ -1,6 +1,6 @@
 {
   "name": "mapbox-react",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Leaflet engine with Mapbox and React",
   "main": "index.js",
   "scripts": {

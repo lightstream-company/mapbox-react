@@ -1,6 +1,12 @@
 import React from 'react';
 
 class Popup extends React.Component {
+
+  static propTypes = {
+    map: React.PropTypes.any,
+    children: React.PropTypes.node
+  }
+
   render() {
     return <div>
       {this.props.children}

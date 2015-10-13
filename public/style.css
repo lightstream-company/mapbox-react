@@ -15,3 +15,8 @@
   left: 9px;
   border: 1px solid red;
 }
+
+#map{
+  width: 600px;
+  height: 600px;
+}

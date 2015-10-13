@@ -1,6 +1,9 @@
 'use strict';
 import React from 'react';
+import L from 'mapbox.js';
 import {Map, Layer, MapboxLayer, Marker, Popup} from '../';
+
+L.mapbox.accessToken = 'pk.eyJ1IjoiZnJhbmNrZXJuZXdlaW4iLCJhIjoiYXJLM0dISSJ9.mod0ppb2kjzuMy8j1pl0Bw';
 
 class Example extends React.Component {
 
@@ -62,16 +65,17 @@ class Example extends React.Component {
 
     });
 
-
-    return <Map width={650} height={650}>
+    let map = L.mapbox.map(document.getElementById('map'));
+    map.setView([0, 0], 1);
+    return <Map map={map}>
       <MapboxLayer url="mapbox.streets" />
-      <Layer interactive={true}>
+      <Layer interactive>
         {collection.map((item) => {
           return <Marker key={item.id} geojson={item.geojson}>
             <div className="circle">
               <div className="center"></div>
             </div>
-            <Popup className="popup-class">
+            <Popup className="popup-class" offset={[0, -10]}>
               <h1>{item.data.title}</h1>
               <p>yolo</p>
             </Popup>
@@ -82,4 +86,4 @@ class Example extends React.Component {
   }
 }
 
-React.render(<Example />, document.body);
+React.render(<Example />, document.getElementById('content'));

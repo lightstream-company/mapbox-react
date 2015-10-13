@@ -4,6 +4,13 @@ import React from 'react';
 
 class Layer extends React.Component {
 
+
+  static propTypes = {
+    map: React.PropTypes.any,
+    children: React.PropTypes.node,
+    interactive: React.PropTypes.bool
+  }
+
   constructor(props) {
     super(props);
     this.options = {
@@ -19,9 +26,6 @@ class Layer extends React.Component {
   onAdd() {
     let el = this.refs.content.getDOMNode();
     this.props.map.getPanes().overlayPane.appendChild(el);
-  }
-  onRemove() {
-
   }
 
   render() {

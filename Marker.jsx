@@ -3,7 +3,40 @@ import L from 'mapbox.js';
 import React from 'react';
 import Popup from './Popup.jsx';
 
+
+const popupOptionsList = [
+  'maxWidth',
+  'minWidth',
+  'maxHeight',
+  'autoPan',
+  'keepInView',
+  'closeButton',
+  'offset',
+  'autoPanPaddingTopLeft',
+  'autoPanPaddingBottomRight',
+  'autoPanPadding',
+  'zoomAnimation',
+  'closeOnClick',
+  'className'
+];
+
+function pick(_this, arr) {
+  let obj = {};
+  arr.forEach(function(key) {
+    if (obj[key] !== undefined) {
+      obj[key] = _this[key];
+    }
+  });
+  return obj;
+}
+
 class Marker extends React.Component {
+
+  static propTypes = {
+    children: React.PropTypes.node,
+    geojson: React.PropTypes.any,
+    map: React.PropTypes.any
+  };
 
   constructor(props) {
     super(props);
@@ -42,15 +75,9 @@ class Marker extends React.Component {
     this.props.map.off('zoomanim', this._onZoomAnim);
   }
   setPosition(zoom, center) {
-    let lng, lat;
-    if (this.props.geojson) {
-      let coor = this.props.geojson.coordinates;
-      lng = coor[0];
-      lat = coor[1];
-    } else if (this.props.lat && this.props.lng) {
-      lng = this.props.lat;
-      lat = this.props.lng;
-    }
+    let coor = this.props.geojson.coordinates;
+    let lng = coor[0];
+    let lat = coor[1];
     let latlng = L.latLng(lat, lng);
     let position;
     if (zoom && center) {
@@ -65,41 +92,38 @@ class Marker extends React.Component {
     });
   }
 
+  openPopup() {
+    if (this.popup) {
+      let coor = this.props.geojson.coordinates;
+      let popup = L.popup(this.popupOptions);
+      let html = React.renderToStaticMarkup(this.popup);
+      popup.setLatLng([coor[1], coor[0]]);
+      popup.setContent(html);
+      popup.openOn(this.props.map);
+    }
+  }
+
   render() {
     let style = {
-      WebkitTransform: `translateX(${this.state.x}px) translateY(${this.state.y}px)`,
+      WebkitTransform: `translateX(${this.state.x}px) translateY(${this.state.y}px)`
     };
     if (this.state.transition) {
       style.transition = `0.25s transform`;
     }
-    let hasPopup = false;
     let children = React.Children.map(this.props.children, (child) => {
       if (child.type === Popup) {
-        hasPopup = true;
-        this.popupClassName = child.props.className || '';
+        this.popupOptions = pick(child.props, popupOptionsList);
         this.popup = React.cloneElement(child, {
           map: this.props.map,
-          layer: this.props.layer,
           marker: this
         });
       } else {
         return child;
       }
     });
-    return <div style={style} className="ls-marker" 
-      onClick={this.openPopup.bind(this)}>{children}</div>;
-  }
-  openPopup() {
-    if (this.popup) {
-      let coor = this.props.geojson.coordinates;
-      let popup = L.popup({
-        className: this.popupClassName
-      });
-      let html = React.renderToStaticMarkup(this.popup);
-      popup.setLatLng([coor[1], coor[0]]);
-      popup.setContent(html);
-      popup.openOn(this.props.map);
-    }
+    return <div style={style} className="ls-marker" onClick={this.openPopup.bind(this)}>
+      {children}
+    </div>;
   }
 }
 

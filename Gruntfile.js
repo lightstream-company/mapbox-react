@@ -8,10 +8,14 @@ module.exports = function(grunt) {
   var config = {
     browserify: {
       options: {
-        transform: ['babelify'],
+        transform: [
+          ['babelify', {
+            stage: 0
+          }]
+        ],
         watch: true,
         browserifyOptions: {
-          debug: true,
+          debug: true
         }
       },
       example: {
