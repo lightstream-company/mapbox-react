@@ -1,6 +1,6 @@
 {
   "name": "mapbox-react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Leaflet engine with Mapbox and React",
   "main": "index.js",
   "scripts": {
@@ -34,7 +34,9 @@
   },
   "browserify": {
     "transform": [
-      "babelify"
+      ["babelify", {
+        "stage": [0]
+      }]
     ]
   }
 }
