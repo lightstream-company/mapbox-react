@@ -23,7 +23,7 @@ const popupOptionsList = [
 function pick(_this, arr) {
   let obj = {};
   arr.forEach(function(key) {
-    if (obj[key] !== undefined) {
+    if (_this[key] !== undefined) {
       obj[key] = _this[key];
     }
   });
@@ -69,11 +69,22 @@ class Marker extends React.Component {
     this.props.map.on('zoomend', this._onZoomEnd);
     this.props.map.on('zoomanim', this._onZoomAnim);
   }
+
+  componentDidUpdate(){
+    if (this.popup) {
+      let coor = this.props.geojson.coordinates;
+      let html = React.renderToStaticMarkup(this.popupElement);
+      this.popup.setLatLng([coor[1], coor[0]]);
+      this.popup.setContent(html);
+    }
+  }
+
   componentDidUnmount() {
     this.props.map.off('zoomstart', this._onZoomStart);
     this.props.map.off('zoomend', this._onZoomEnd);
     this.props.map.off('zoomanim', this._onZoomAnim);
   }
+
   setPosition(zoom, center) {
     let coor = this.props.geojson.coordinates;
     let lng = coor[0];
@@ -90,38 +101,43 @@ class Marker extends React.Component {
       x: position.x,
       y: position.y
     });
+    React.Children.forEach(this.props.children, (child) => {
+      if (child.type === Popup) {
+        let popupOptions = pick(child.props, popupOptionsList);
+        this.popup = L.popup(popupOptions);
+        this.popupElement = React.cloneElement(child, {
+          map: this.props.map,
+          marker: this
+        });
+      }
+    });
   }
 
   openPopup() {
     if (this.popup) {
       let coor = this.props.geojson.coordinates;
-      let popup = L.popup(this.popupOptions);
-      let html = React.renderToStaticMarkup(this.popup);
-      popup.setLatLng([coor[1], coor[0]]);
-      popup.setContent(html);
-      popup.openOn(this.props.map);
+      let html = React.renderToStaticMarkup(this.popupElement);
+      this.popup.setLatLng([coor[1], coor[0]]);
+      this.popup.setContent(html);
+      this.popup.openOn(this.props.map);
     }
-  }
+  } 
 
   render() {
     let style = {
-      WebkitTransform: `translateX(${this.state.x}px) translateY(${this.state.y}px)`
+      WebkitTransform: `translateX(${this.state.x}px) translateY(${this.state.y}px)`,
+      transform: `translateX(${this.state.x}px) translateY(${this.state.y}px)`,
+      position: 'absolute'
     };
     if (this.state.transition) {
       style.transition = `0.25s transform`;
     }
     let children = React.Children.map(this.props.children, (child) => {
-      if (child.type === Popup) {
-        this.popupOptions = pick(child.props, popupOptionsList);
-        this.popup = React.cloneElement(child, {
-          map: this.props.map,
-          marker: this
-        });
-      } else {
+      if (child.type !== Popup) {
         return child;
       }
     });
-    return <div style={style} className="ls-marker" onClick={this.openPopup.bind(this)}>
+    return <div style={style} onClick={this.openPopup.bind(this)}>
       {children}
     </div>;
   }
