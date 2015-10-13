@@ -66,7 +66,8 @@ Object.keys(matrix).forEach(function(key) {
 class Example extends React.Component {
 
   state = {
-    collection: []
+    collection: [],
+    now: new Date().toISOString()
   };
 
   componentWillMount(){
@@ -80,9 +81,14 @@ class Example extends React.Component {
         clearInterval(timer);
       }
       i++;
-    }, 200);
+    }, 20);
     this.map = L.mapbox.map(document.getElementById('map'));
     this.map.setView([0, 0], 1);
+    setInterval(()=>{
+      this.setState({
+        now: new Date().toISOString()
+      });
+    }, 1000);
   }
 
   render() {
@@ -96,7 +102,7 @@ class Example extends React.Component {
             </div>
             <Popup className="popup-class" offset={[0, -10]}>
               <h1>{item.data.title}</h1>
-              <p>yolo</p>
+              <p>{this.state.now}</p>
             </Popup>
           </Marker>;
         })}

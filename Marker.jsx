@@ -69,22 +69,11 @@ class Marker extends React.Component {
     this.props.map.on('zoomend', this._onZoomEnd);
     this.props.map.on('zoomanim', this._onZoomAnim);
   }
-
-  componentDidUpdate(){
-    if (this.popup) {
-      let coor = this.props.geojson.coordinates;
-      let html = React.renderToStaticMarkup(this.popupElement);
-      this.popup.setLatLng([coor[1], coor[0]]);
-      this.popup.setContent(html);
-    }
-  }
-
   componentDidUnmount() {
     this.props.map.off('zoomstart', this._onZoomStart);
     this.props.map.off('zoomend', this._onZoomEnd);
     this.props.map.off('zoomanim', this._onZoomAnim);
   }
-
   setPosition(zoom, center) {
     let coor = this.props.geojson.coordinates;
     let lng = coor[0];
@@ -101,27 +90,25 @@ class Marker extends React.Component {
       x: position.x,
       y: position.y
     });
-    React.Children.forEach(this.props.children, (child) => {
-      if (child.type === Popup) {
-        let popupOptions = pick(child.props, popupOptionsList);
-        this.popup = L.popup(popupOptions);
-        this.popupElement = React.cloneElement(child, {
-          map: this.props.map,
-          marker: this
-        });
-      }
-    });
   }
 
   openPopup() {
-    if (this.popup) {
+    let popup, popupElement;
+    React.Children.forEach(this.props.children, (child) => {
+      if (child.type === Popup) {
+        let popupOptions = pick(child.props, popupOptionsList);
+        popup = L.popup(popupOptions);
+        popupElement = child;
+      }
+    });
+    if (popup) {
       let coor = this.props.geojson.coordinates;
-      let html = React.renderToStaticMarkup(this.popupElement);
-      this.popup.setLatLng([coor[1], coor[0]]);
-      this.popup.setContent(html);
-      this.popup.openOn(this.props.map);
+      let html = React.renderToStaticMarkup(popupElement);
+      popup.setLatLng([coor[1], coor[0]]);
+      popup.setContent(html);
+      popup.openOn(this.props.map);
     }
-  } 
+  }
 
   render() {
     let style = {
