@@ -10,6 +10,14 @@ class Map extends React.Component {
   };
 
   componentDidMount() {
+    this.renderInLeafletNode();
+  }
+
+  componentDidUpdate() {
+    this.renderInLeafletNode();
+  }
+
+  renderInLeafletNode() {
     React.Children.map(this.props.children, (child) => {
       if (child.type === Layer) {
         let clone = React.cloneElement(child, {
