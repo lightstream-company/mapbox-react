@@ -69,7 +69,7 @@ class Marker extends React.Component {
     this.props.map.on('zoomend', this._onZoomEnd);
     this.props.map.on('zoomanim', this._onZoomAnim);
   }
-  componentDidUnmount() {
+  componentWillUnmount() {
     this.props.map.off('zoomstart', this._onZoomStart);
     this.props.map.off('zoomend', this._onZoomEnd);
     this.props.map.off('zoomanim', this._onZoomAnim);

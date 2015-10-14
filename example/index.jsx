@@ -91,24 +91,36 @@ class Example extends React.Component {
     }, 1000);
   }
 
+  remove(){
+    this.setState({
+      collection: this.state.collection.slice(1, this.state.collection.length)
+    });
+  }
+
   render() {
-    return <Map map={this.map}>
-      <MapboxLayer url="mapbox.streets" />
-      <Layer interactive>
-        {this.state.collection.map((item) => {
-          return <Marker key={item.id} geojson={item.geojson}>
-            <div className="circle">
-              <div className="center"></div>
-            </div>
-            <Popup className="popup-class" offset={[0, -10]}>
-              <h1>{item.data.title}</h1>
-              <p>{this.state.now}</p>
-            </Popup>
-          </Marker>;
-        })}
-      </Layer>
-    </Map>;
+    return <div>
+      <button onClick={this.remove.bind(this)}>Remove</button>
+      <Map map={this.map}>
+        <MapboxLayer url="mapbox.streets" />
+        <Layer interactive>
+          {this.state.collection.map((item) => {
+            return <Marker key={item.id} geojson={item.geojson}>
+              <div className="circle">
+                <div className="center"></div>
+              </div>
+              <Popup className="popup-class" offset={[0, -10]}>
+                <h1>{item.data.title}</h1>
+                <p>{this.state.now}</p>
+                <a href="#">Remove Me</a>
+              </Popup>
+            </Marker>;
+          })}
+        </Layer>
+      </Map>
+    </div>;
   }
 }
+
+
 
 React.render(<Example />, document.getElementById('content'));
