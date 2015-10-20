@@ -73,6 +73,9 @@ class Marker extends React.Component {
     this.props.map.off('zoomstart', this._onZoomStart);
     this.props.map.off('zoomend', this._onZoomEnd);
     this.props.map.off('zoomanim', this._onZoomAnim);
+    if (this.popup) {
+      this.props.map.closePopup(this.popup);
+    }
   }
   setPosition(zoom, center) {
     let coor = this.props.geojson.coordinates;
@@ -107,6 +110,7 @@ class Marker extends React.Component {
       popup.setLatLng([coor[1], coor[0]]);
       popup.setContent(html);
       popup.openOn(this.props.map);
+      this.popup = popup;
     }
   }
 
