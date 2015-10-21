@@ -63,6 +63,12 @@ Object.keys(matrix).forEach(function(key) {
 
 
 });
+
+const CENTER = {
+  type: 'Point',
+  coordinates: [0, 0]
+};
+
 class Example extends React.Component {
 
   state = {
@@ -70,8 +76,10 @@ class Example extends React.Component {
     now: new Date().toISOString()
   };
 
-  componentWillMount(){
+  componentWillMount() {
     let i = 0;
+    this.map = L.mapbox.map(document.getElementById('map'));
+    this.map.setView([0, 0], 1);
     let timer = setInterval(() => {
       if (collection[i]) {
         this.setState({
@@ -82,16 +90,14 @@ class Example extends React.Component {
       }
       i++;
     }, 20);
-    this.map = L.mapbox.map(document.getElementById('map'));
-    this.map.setView([0, 0], 1);
-    setInterval(()=>{
+    setInterval(() => {
       this.setState({
         now: new Date().toISOString()
       });
     }, 1000);
   }
 
-  remove(){
+  remove() {
     this.setState({
       collection: this.state.collection.slice(1, this.state.collection.length)
     });
@@ -102,6 +108,11 @@ class Example extends React.Component {
       <button onClick={this.remove.bind(this)}>Remove</button>
       <Map map={this.map}>
         <MapboxLayer url="mapbox.streets" />
+        <Layer>
+          <Marker geojson={CENTER}>
+            <span>Center !</span>
+          </Marker>
+        </Layer>
         <Layer interactive>
           {this.state.collection.map((item) => {
             return <Marker key={item.id} geojson={item.geojson}>

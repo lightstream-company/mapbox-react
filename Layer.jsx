@@ -9,7 +9,7 @@ class Layer extends React.Component {
     map: React.PropTypes.any,
     children: React.PropTypes.node,
     interactive: React.PropTypes.bool
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -17,15 +17,11 @@ class Layer extends React.Component {
       interactive: props.interactive ? true : false,
       nonBubblingEvents: ['click', 'dblclick', 'mouseover', 'mouseout', 'contextmenu']
     };
-  }
-
-  componentDidMount() {
     this.props.map.addLayer(this);
   }
 
   onAdd() {
-    let el = this.refs.content.getDOMNode();
-    this.props.map.getPanes().overlayPane.appendChild(el);
+    //must be implemented...
   }
 
   render() {
