@@ -1,5 +1,6 @@
 'use strict';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import L from 'mapbox.js';
 import {
   Map, Layer, MapboxLayer, Marker, Popup
@@ -134,4 +135,4 @@ class Example extends React.Component {
 
 
 
-React.render(<Example />, document.getElementById('content'));
+ReactDOM.render(<Example />, document.getElementById('content'));

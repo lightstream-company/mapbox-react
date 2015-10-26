@@ -1,5 +1,6 @@
 'use strict';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Layer from './Layer.jsx';
 
 class Map extends React.Component {
@@ -25,7 +26,7 @@ class Map extends React.Component {
         });
       }
     });
-    React.render(<div>{layers}</div>, this.props.map.getPanes().overlayPane);
+    ReactDOM.render(<div>{layers}</div>, this.props.map.getPanes().overlayPane);
   }
 
   render() {

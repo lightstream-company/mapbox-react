@@ -1,6 +1,7 @@
 'use strict';
 import L from 'mapbox.js';
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import Popup from './Popup.jsx';
 
 
@@ -106,7 +107,7 @@ class Marker extends React.Component {
     });
     if (popup) {
       let coor = this.props.geojson.coordinates;
-      let html = React.renderToStaticMarkup(popupElement);
+      let html = ReactDOMServer.renderToStaticMarkup(popupElement);
       popup.setLatLng([coor[1], coor[0]]);
       popup.setContent(html);
       popup.openOn(this.props.map);

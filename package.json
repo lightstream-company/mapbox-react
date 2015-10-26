@@ -1,6 +1,6 @@
 {
   "name": "mapbox-react",
-  "version": "0.1.7",
+  "version": "0.2.1",
   "description": "Leaflet engine with Mapbox and React",
   "main": "index.js",
   "scripts": {
@@ -21,22 +21,29 @@
     "url": "https://github.com/lightstream-company/mapbox-react/issues"
   },
   "homepage": "https://github.com/lightstream-company/mapbox-react#readme",
-  "dependencies": {
-    "envify": "^3.4.0",
-    "mapbox.js": "^2.2.2",
-    "react": "^0.13.3"
+  "peerDependencies": {
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
   },
   "devDependencies": {
     "babelify": "^6.3.0",
     "grunt": "^0.4.5",
     "grunt-browserify": "^4.0.1",
-    "grunt-contrib-watch": "^0.6.1"
+    "grunt-contrib-watch": "^0.6.1",
+    "mapbox.js": "^2.2.2",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
   },
   "browserify": {
     "transform": [
-      ["babelify", {
-        "stage": [0]
-      }]
+      [
+        "babelify",
+        {
+          "stage": [
+            0
+          ]
+        }
+      ]
     ]
   }
 }
