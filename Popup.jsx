@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 
 class Popup extends React.Component {
@@ -6,7 +8,7 @@ class Popup extends React.Component {
     map: React.PropTypes.any,
     marker: React.PropTypes.any,
     children: React.PropTypes.node
-  }
+  };
 
   render() {
     return <div>

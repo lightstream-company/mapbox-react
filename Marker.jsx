@@ -101,7 +101,7 @@ class Marker extends React.Component {
     React.Children.forEach(this.props.children, (child) => {
       if (child.type === Popup) {
         let popupOptions = pick(child.props, popupOptionsList);
-        popup = L.popup(popupOptions);
+        this.popup = popup = L.popup(popupOptions);
         popupElement = child;
       }
     });
@@ -135,5 +135,4 @@ class Marker extends React.Component {
   }
 }
 
-export
-default Marker;
+export default Marker;

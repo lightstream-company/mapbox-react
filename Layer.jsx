@@ -1,14 +1,14 @@
 'use strict';
-//import L from 'mapbox.js';
+
 import React from 'react';
 
 class Layer extends React.Component {
 
-
   static propTypes = {
     map: React.PropTypes.any,
     children: React.PropTypes.node,
-    interactive: React.PropTypes.bool
+    interactive: React.PropTypes.bool,
+    className: React.PropTypes.string
   };
 
   constructor(props) {
@@ -25,7 +25,7 @@ class Layer extends React.Component {
   }
 
   render() {
-    return <div ref="content">{React.Children.map(this.props.children, (child) => {
+    return <div ref="content" className={this.props.className}>{React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, {
         map: this.props.map,
         layer: this
@@ -34,5 +34,4 @@ class Layer extends React.Component {
   }
 }
 
-export
-default Layer;
+export default Layer;
