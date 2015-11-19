@@ -1,6 +1,6 @@
 {
   "name": "mapbox-react",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Leaflet engine with Mapbox and React",
   "main": "index.js",
   "scripts": {
@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/lightstream-company/mapbox-react#readme",
   "peerDependencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react": "0.14",
+    "react-dom": "0.14"
   },
   "devDependencies": {
     "babelify": "^6.3.0",
